@@ -6,6 +6,9 @@ import com.example.models.Product;
 import com.example.repositories.CategoryRepository;
 import com.example.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +30,7 @@ public class SelfProductService implements ProductService {
         return optionalProduct.orElse(null);
     }
 
+
     @Override
     public Product getProductTitlePriceById(Long id) {
         ProductWithTitlePrice productWithTitlePrice = productRepository.getProductWithTitlePriceSQL(id);
@@ -36,10 +40,19 @@ public class SelfProductService implements ProductService {
         return product;
     }
 
+
     @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public Page<Product> getAllProducts(int pageNumber, int pageSize, String sortBy) {
+        // productRepository.findAll() takes a Pageable object as an argument which will be used to specify the page number, page size, and sorting order
+        return productRepository.findAll(
+                // Since Pageable is an interface, we use PageRequest.of() to create an instance of PageRequest wherein Pageable is the parent of PageRequest class
+                PageRequest.of(pageNumber, pageSize,
+                        // Sort data by the sortBy field in ascending order and then by the title field in descending order
+                        Sort.by(sortBy).ascending().and(Sort.by("title").descending())
+                )
+        );
     }
+
 
     @Override
     public List<Product> getAllProductsByCategory(String category) {
@@ -47,15 +60,18 @@ public class SelfProductService implements ProductService {
         return productRepository.findAllByCategory(categoryObj);
     }
 
+
     @Override
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
+
     @Override
     public Product createProduct(Product product) {
         return productRepository.save(product);
     }
+
 
     @Override
     public Product deleteProduct(Long id) {
@@ -66,6 +82,7 @@ public class SelfProductService implements ProductService {
         }
         return null;
     }
+
 
     @Override
     public Product updateProduct(Long id, Product product) {
@@ -82,6 +99,7 @@ public class SelfProductService implements ProductService {
         }
         return null;
     }
+
 
     @Override
     public Product replaceProduct(Long id, Product product) {

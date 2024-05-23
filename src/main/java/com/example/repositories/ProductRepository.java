@@ -3,6 +3,8 @@ package com.example.repositories;
 import com.example.models.Category;
 import com.example.models.Product;
 import com.example.projections.ProductWithTitlePrice;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,8 +18,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Override
     Optional<Product> findById(Long aLong);
 
+    // The findAll method returns a Page object that contains a list of products
+    // It takes a Pageable object as an argument which will be used to specify the page number, page size, and sorting order
     @Override
-    List<Product> findAll();
+    Page<Product> findAll(Pageable pageable);
 
     List<Product> findAllByCategory(Category category);
 

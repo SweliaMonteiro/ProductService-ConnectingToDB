@@ -20,3 +20,9 @@ You are working on a project that requires you to create a DB and perform CRUD o
 4. Use Spring Data JPA to connect to the DB and perform the operations.
 5. Use fetch types to optimize the queries and cascade types to handle the relationships between entities.
 6. Also try to implement the functions using SQL or HQL queries where possible.
+
+#### Pagination and Sorting
+1. Implement pagination and sorting for the `getAllProducts()` function.
+2. Take the page number, page size, and sort by field as input from the user and return the paginated and sorted list of products.
+3. If user does not provide the page number, page size, or sort by field, use default values.
+4. Use `Pageable` interfaces to implement pagination and sorting.

@@ -2,6 +2,7 @@ package com.example.services;
 
 import com.example.models.Category;
 import com.example.models.Product;
+import org.springframework.data.domain.Page;
 import java.util.List;
 
 
@@ -11,7 +12,7 @@ public interface ProductService {
 
     Product getProductTitlePriceById(Long id);
 
-    List<Product> getAllProducts();
+    Page<Product> getAllProducts(int pageNumber, int pageSize, String sortBy);
 
     List<Product> getAllProductsByCategory(String category);
 

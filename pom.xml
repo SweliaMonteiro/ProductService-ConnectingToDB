@@ -10,7 +10,6 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>ProductService-ConnectingToDB</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>ProductService-ConnectingToDB</name>
     <description>ProductService-ConnectingToDB</description>
     <properties>
